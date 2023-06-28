@@ -54,9 +54,10 @@ public:
 	void SetBGScreen();
 	template <class _Type>
 	friend void exapndArray (_Type*& oldArr, int& size);
-	GameState(std::string name) : name(name), Game(name)
+	GameState(std::string name, int playingLevel) : name(name), Game(name)
 	{
 		GameStatus = false;
+		Game::setSpeed(playingLevel);
 		wind.create(sf::VideoMode(800, 600), "Start", sf::Style::Titlebar | sf::Style::Close);
 		while (wind.isOpen()) {
 			RenderScreen();
@@ -64,7 +65,7 @@ public:
 		}
 
 	}	
-	GameState(std::string name, std::string name2) : name(name), name2(name2), Game(name, name2)
+	GameState(std::string name, std::string name2, int playingLevel) : name(name), name2(name2), Game(name, name2)
 	{
 		GameStatus = false;
 		wind.create(sf::VideoMode(800, 600), "Start", sf::Style::Titlebar | sf::Style::Close);

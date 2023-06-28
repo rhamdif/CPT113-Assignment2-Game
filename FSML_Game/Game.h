@@ -79,5 +79,10 @@ public:
 	void Run();
 	void LoadSprites();
 	void ExitGame();
+	void setSpeed(int s) {
+		speed2 = speed = 0;
+		speed2 = speed = (s * 150);
+		
+	};
 };
 
