@@ -37,6 +37,7 @@ private:
 	sf::Sprite TrainSprite;
 	sf::Sprite TrainSprite2;
 	sf::Texture spriteSheet;
+	sf::Texture spriteSheet2;
 	sf::Sprite snoopy;
 	sf::Event event;
 	sf::Vector2f snoopyPos;
@@ -68,7 +69,8 @@ private:
 	void HandleSnoopyTouched2();
 	bool isSnoopyTouched(NODE head, sf::Sprite* snoopy);
 	bool isSnoopyTouched2(NODE head, sf::Sprite* snoopy);
-	void checkInterSection(NODE head, sf::RenderWindow* window);
+	void checkInterSection1(NODE head, sf::RenderWindow* window);
+	void checkInterSection2(NODE head, sf::RenderWindow* window);
 public:
 	
 	Game(std::string name) : name(name), playersCount(1) {}

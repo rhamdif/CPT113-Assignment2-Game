@@ -49,7 +49,7 @@ void Game::Update2()
 	head2 = insertHead(head2, &TrainSprite2);
 	tail2 = deleteTail(tail2);
 	HandleSnoopyTouched2();
-	checkInterSection(head2, &window);
+	checkInterSection2(head2, &window);
 	count2 = 0;
 }
 
@@ -65,7 +65,7 @@ void Game::Update() {
 	head1 = insertHead(head1, &TrainSprite);
 	tail1 = deleteTail(tail1);	
 	HandleSnoopyTouched();
-	checkInterSection(head1, &window);
+	checkInterSection1(head1, &window);
 	count = 0;
 
 }
@@ -162,8 +162,8 @@ void Game::LoadSprites() {
 	TrainSprite.setScale(sf::Vector2f(0.25, 0.25));
 	TrainSprite.setOrigin(104.5, 104.5);
 
-	this->spriteSheet.loadFromFile("./trainsprite.png");
-	TrainSprite2.setTexture(spriteSheet);
+	this->spriteSheet2.loadFromFile("./trainsprite2.png");
+	TrainSprite2.setTexture(spriteSheet2);
 	TrainSprite2.setScale(sf::Vector2f(0.25, 0.25));
 	TrainSprite2.setOrigin(104.5, 104.5);
 
@@ -322,10 +322,10 @@ void Game::HandleSnoopyTouched() {
 		score++;
 		if (playersCount > 1)
 		{
-			Score.setString(sf::String("Player 1: " + std::to_string(score)));
+			Score.setString(sf::String(name + " : " + std::to_string(score)));
 		}
 		else {
-			Score.setString(sf::String("Score " + std::to_string(score)));
+			Score.setString(sf::String(name + " : " + std::to_string(score)));
 		}
 		
 	}
@@ -349,11 +349,12 @@ void Game::HandleSnoopyTouched2() {
 		}
 		snoopy.setPosition(getSnoopyCoords());
 		score2++;
-		Score2.setString(sf::String("Player 2:  " + std::to_string(score2)));
+		Score2.setString(sf::String(name2 + " : " + std::to_string(score2)));
 	}
 };
 
 bool Game::isSnoopyTouched2(NODE head, sf::Sprite* snoopy) {
+	auto stuff = snoopy->getPosition();
 	if (sf::Vector2f(head->posx, head->posy) == snoopy->getPosition())
 	{
 		return true;
@@ -373,17 +374,62 @@ bool Game::isSnoopyTouched2(NODE head, sf::Sprite* snoopy) {
 	else if (sf::Vector2f(head->posx + 10, head->posy - 10) == snoopy->getPosition())
 	{
 		return true;
+	}	
+	else if (sf::Vector2f(head->posx, head->posy - 10) == snoopy->getPosition())
+	{
+		return true;
+	}	
+	else if (sf::Vector2f(head->posx, head->posy + 10) == snoopy->getPosition())
+	{
+		return true;
+	}	
+	else if (sf::Vector2f(head->posx +10, head->posy) == snoopy->getPosition())
+	{
+		return true;
+	}	
+	else if (sf::Vector2f(head->posx -10, head->posy) == snoopy->getPosition())
+	{
+		return true;
 	}
 	return false;
 }
 bool Game::isSnoopyTouched(NODE head, sf::Sprite* snoopy) {
 	return sf::Vector2f(head->posx, head->posy) == snoopy->getPosition();
 }
-void Game::checkInterSection(NODE head, sf::RenderWindow* window) {
+void Game::checkInterSection1(NODE head, sf::RenderWindow* window) {
 	NODE cur = head->rlink;
 	while (cur != NULL) {
 		if (head->posx == cur->posx && head->posy == cur->posy) {
 			FileStoreScore(score);
+			score = 0;
+			if (playersCount > 1)
+			{
+				Score.setString(sf::String(name + " : " + std::to_string(score)));
+			}
+			else {
+				Score.setString(sf::String(name + " : " + std::to_string(score)));
+			}
+			Score2.setString(sf::String(name2 + " : " + std::to_string(score2)));
+			window->close();
+		}
+		cur = cur->rlink;
+	}
+};
+
+void Game::checkInterSection2(NODE head, sf::RenderWindow* window) {
+	NODE cur = head->rlink;
+	while (cur != NULL) {
+		if (head->posx == cur->posx && head->posy == cur->posy) {
+			FileStoreScore(score);
+			score2 = 0;
+			if (playersCount > 1)
+			{
+				Score.setString(sf::String(name + " : " + std::to_string(score)));
+			}
+			else {
+				Score.setString(sf::String(name + " : " + std::to_string(score)));
+			}
+			Score2.setString(sf::String(name2 + " : " + std::to_string(score2)));
 			window->close();
 		}
 		cur = cur->rlink;
@@ -433,5 +479,15 @@ void Game::FileStoreScore(int score) {
 
 void Game::ExitGame() {
 	FileStoreScore(score);
+	score = 0;
+	score2 = 0;
+	if (playersCount > 1)
+	{
+		Score.setString(sf::String(name+ " : " + std::to_string(score)));
+	}
+	else {
+		Score.setString(sf::String(name + " : " + std::to_string(score)));
+	}
+	Score2.setString(sf::String(name2 + " : " + std::to_string(score2)));
 	window.close();
 }
