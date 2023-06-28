@@ -47,7 +47,6 @@ void GameState::SetBGScreen() {
 	this->Background.loadFromFile("Hbg.jpg");
 	bg.setTexture(Background);
 	bg.scale(1, 1);
-
 	wind.draw(bg);
 }
 
@@ -170,7 +169,7 @@ void exapndArray(_Type*& oldArr, int& size)
 	delete[] oldArr;
 	oldArr = newArray;
 }
-
+	
 int* GameState::getScores()
 {
 	std::fstream handle("score.txt", std::fstream::in | std::fstream::out | std::fstream::app);

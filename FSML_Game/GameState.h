@@ -6,6 +6,7 @@ private:
 	bool showScore = false;
 	int NumberOfScores = 0;
 	std::string name;
+	std::string name2;
 	bool GameStatus = false;
 	int HighScore = 0;
 	sf::RenderWindow wind;
@@ -23,9 +24,11 @@ private:
 	sf::Text HighScoreHome;
 	sf::String playerName;
 	sf::Text playerTextName;
+	sf::String playerInput;
+	sf::Text playerText;
 	void processEvents();
 	void RenderScreen();
-	void SetBGScreen();
+	
 	void SetLOGOScreen();
 	void SetTitleScreen();
 	void SetStartGame();
@@ -48,10 +51,20 @@ private:
 			return -1;
 	}
 public:
+	void SetBGScreen();
 	template <class _Type>
-	friend void exapndArray
-	(_Type*& oldArr, int& size);
+	friend void exapndArray (_Type*& oldArr, int& size);
 	GameState(std::string name) : name(name), Game(name)
+	{
+		GameStatus = false;
+		wind.create(sf::VideoMode(800, 600), "Start", sf::Style::Titlebar | sf::Style::Close);
+		while (wind.isOpen()) {
+			RenderScreen();
+			processEvents();
+		}
+
+	}	
+	GameState(std::string name, std::string name2) : name(name), name2(name2), Game(name, name2)
 	{
 		GameStatus = false;
 		wind.create(sf::VideoMode(800, 600), "Start", sf::Style::Titlebar | sf::Style::Close);
