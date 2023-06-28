@@ -51,9 +51,11 @@ void Game::Update2()
 	HandleSnoopyTouched2();
 	checkInterSection2(head2, &window);
 	count2 = 0;
+
 }
 
 void Game::Update() {
+	
 	if (head1->posx > 810)
 		head1->posx = 0;
 	if (head1->posx < 0)
@@ -68,10 +70,12 @@ void Game::Update() {
 	checkInterSection1(head1, &window);
 	count = 0;
 
+
 }
 
 void Game::Start() {
 	LoadSprites();
+
 	head1 = (NODE)malloc(sizeof(struct node));
 	head1->posx = 150;
 	head1->posy = 150;
@@ -103,6 +107,7 @@ void Game::Run() {
 	while (window.isOpen()) {
 		Render();
 		processEvents();
+		setSpeed(playingLevel);
 		if (count == speed) {
 			Update();
 		}

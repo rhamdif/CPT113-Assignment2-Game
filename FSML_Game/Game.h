@@ -23,6 +23,7 @@ private:
 	NODE head2, tail2, cur2;
 	int speed = 600;
 	int speed2 = 600;
+	int playingLevel = 1;
 	int count = 0;
 	int count2 = 0;
 	int score = 0;
@@ -80,9 +81,9 @@ public:
 	void LoadSprites();
 	void ExitGame();
 	void setSpeed(int s) {
-		speed2 = speed = 0;
-		speed2 = speed = (s * 150);
-		
+		playingLevel = s;
+		speed2 = (playingLevel * 150);
+		speed = (playingLevel * 150);
 	};
 };
 
